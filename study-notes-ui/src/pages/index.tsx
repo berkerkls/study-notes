@@ -12,10 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="bg-slate-50 flex flex-col justify-between">
-          <Navbar />
-          <HomePage />
-        </div>
+        <HomePage />
       </main>
     </>
   );

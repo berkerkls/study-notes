@@ -18,26 +18,35 @@ function Navbar() {
     <div>
       <div className="navbar">
         <div className="navbar-start">
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <a className="btn btn-ghost normal-case text-indigo-700 text-xl">
+            Open Notes
+          </a>
         </div>
         <div className="navbar-end">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Home</a>
+              <Link
+                href="/home"
+                className="bg-transparent hover:bg-transparent"
+              >
+                <button className="btn text-black font-light bg-transparent hover:bg-transparent border-0">
+                  Home
+                </button>
+              </Link>
             </li>
             <li>
               <Link
                 href="/about"
                 className="bg-transparent hover:bg-transparent"
               >
-                <button className="btn text-black bg-transparent hover:bg-transparent border-0">
+                <button className="btn text-black font-light bg-transparent hover:bg-transparent border-0">
                   About
                 </button>
               </Link>
             </li>
             <li tabIndex={0}>
-              <a>
-                Parent
+              <a className="font-light hover:bg-transparent bg-transparent text-black">
+                Notes
                 <svg
                   className="fill-current"
                   xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +57,7 @@ function Navbar() {
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                 </svg>
               </a>
-              <ul className="p-2">
+              <ul className="p-2 bg-indigo-100">
                 {links.map((item: any, index: number) => (
                   <li key={index}>
                     <Link href={item.link} className="hover:bg-transparent">
@@ -63,8 +72,12 @@ function Navbar() {
               </ul>
             </li>
           </ul>
-          <a className="btn mr-2">Login</a>
-          <a className="btn ml-2">Sign Up</a>
+          <button className="btn btn-sm bg-transparent border-indigo-700 text-indigo-700 hover:text-white hover:border-indigo-700 hover:bg-indigo-700 mr-2">
+            Login
+          </button>
+          <button className="btn btn-sm bg-indigo-700 text-white border-0 hover:bg-indigo-700 hover:opacity-80 ml-2">
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
