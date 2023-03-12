@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import LoginDialog from "./Dialogs/LoginDialog";
 
 function Navbar() {
+  const [logindialog, setLoginDialog] = useState(false);
+
+  const handleOpen = () => {
+    setLoginDialog(true);
+  };
+
+  const handleClose = () => {
+    setLoginDialog(false);
+  };
+
   const links = [
     {
       name: "React",
@@ -72,9 +83,13 @@ function Navbar() {
               </ul>
             </li>
           </ul>
-          <button className="btn btn-sm bg-transparent border-indigo-700 text-indigo-700 hover:text-white hover:border-indigo-700 hover:bg-indigo-700 mr-2">
+          <button
+            onClick={handleOpen}
+            className="btn btn-sm bg-transparent border-indigo-700 text-indigo-700 hover:text-white hover:border-indigo-700 hover:bg-indigo-700 mr-2"
+          >
             Login
           </button>
+          <LoginDialog open={logindialog} handleClose={handleClose} />
           <button className="btn btn-sm bg-indigo-700 text-white border-0 hover:bg-indigo-700 hover:opacity-80 ml-2">
             Sign Up
           </button>

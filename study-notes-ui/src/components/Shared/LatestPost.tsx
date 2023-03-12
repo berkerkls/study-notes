@@ -66,7 +66,7 @@ export default function LatestPost() {
     <Carousel
       responsive={responsive}
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      className="w-full lg:w-11/12 my-10 mx-auto bg-slate-50"
+      className="w-full lg:w-11/12 mx-auto bg-slate-50"
     >
       {notesArray.map((item: any, index: number) => {
         return (
