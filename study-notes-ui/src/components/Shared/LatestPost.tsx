@@ -52,30 +52,27 @@ export default function LatestPost() {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      slidesToSlide: 3, // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 2,
-      slidesToSlide: 2, // optional, default to 1.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
-      slidesToSlide: 1, // optional, default to 1.
     },
   };
   return (
     <Carousel
       responsive={responsive}
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      className="w-10/12 lg:w-11/12 my-10 mx-auto"
+      className="w-full lg:w-11/12 my-10 mx-auto bg-slate-50"
     >
       {notesArray.map((item: any, index: number) => {
         return (
           <div
             key={index}
-            className="card card-compact w-96 bg-base-100 shadow-xl"
+            className="card card-compact w-96 mb-5 bg-slate-50 shadow-lg mx-auto"
           >
             <figure>
               <img

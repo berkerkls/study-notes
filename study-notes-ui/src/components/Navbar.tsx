@@ -19,7 +19,7 @@ function Navbar() {
       <div className="navbar">
         <div className="navbar-start">
           <a className="btn btn-ghost normal-case text-indigo-700 text-xl">
-            Open Notes
+            Open Library
           </a>
         </div>
         <div className="navbar-end">
