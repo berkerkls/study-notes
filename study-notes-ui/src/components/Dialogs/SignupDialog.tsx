@@ -34,7 +34,7 @@ function SignupDialog({
           className="absolute right-0 top-5 hover:bg-transparent"
           onClick={closeSignup}
         >
-          <AiOutlineClose className="text-indigo-700" />
+          <AiOutlineClose className="text-emerald-500" />
         </Button>
       </DialogTitle>
       <DialogContent>
@@ -83,7 +83,10 @@ function SignupDialog({
       <Divider />
       <DialogContentText className="flex flex-row justify-between items-center w-2/4 mx-auto p-5">
         <span>Already have an account?</span>
-        <Link className="no-underline" onClick={handleLoginOpen}>
+        <Link
+          className="no-underline mr-2 cursor-pointer text-indigo-700"
+          onClick={handleLoginOpen}
+        >
           Login
         </Link>
       </DialogContentText>

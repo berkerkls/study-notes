@@ -38,9 +38,12 @@ function Navbar() {
     <div>
       <div className="navbar">
         <div className="navbar-start">
-          <a className="btn btn-ghost normal-case text-indigo-700 text-xl">
+          <Link
+            href="/"
+            className="btn btn-ghost normal-case text-indigo-700 text-xl hover:bg-transparent"
+          >
             Open Library
-          </a>
+          </Link>
         </div>
         <div className="navbar-end">
           <ul className="menu menu-horizontal px-1">

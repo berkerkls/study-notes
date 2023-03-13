@@ -69,7 +69,10 @@ function LoginDialog({ handleClose, open, handleOpen }: NavbarProps) {
         <Divider />
         <DialogContentText className="flex flex-row justify-between items-center w-3/4 mx-auto p-5">
           <span className="ml-2">Don't you have an account? </span>
-          <Link className="mr-2 no-underline" onClick={handleSignup}>
+          <Link
+            className="mr-2 no-underline cursor-pointer text-emerald-500"
+            onClick={handleSignup}
+          >
             Signup
           </Link>
         </DialogContentText>
