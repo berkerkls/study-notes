@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -8,12 +8,24 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { AiOutlineClose } from "react-icons/ai";
 import { Divider, Link } from "@mui/material";
+import SignupDialog from "./SignupDialog";
 
 interface NavbarProps {
   handleClose: any;
   open: boolean;
+  handleOpen: any;
 }
-function LoginDialog({ handleClose, open }: NavbarProps) {
+function LoginDialog({ handleClose, open, handleOpen }: NavbarProps) {
+  const [signup, setSignup] = useState(false);
+
+  const handleSignup = () => {
+    setSignup(true);
+    handleClose();
+  };
+  const closeSignup = () => {
+    setSignup(false);
+  };
+
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -57,15 +69,16 @@ function LoginDialog({ handleClose, open }: NavbarProps) {
         <Divider />
         <DialogContentText className="flex flex-row justify-between items-center w-3/4 mx-auto p-5">
           <span className="ml-2">Don't you have an account? </span>
-          <Link
-            className="mr-2 no-underline"
-            href="/sign-up"
-            onClick={handleClose}
-          >
+          <Link className="mr-2 no-underline" onClick={handleSignup}>
             Signup
           </Link>
         </DialogContentText>
       </Dialog>
+      <SignupDialog
+        loginOpen={handleOpen}
+        signup={signup}
+        closeSignup={closeSignup}
+      />
     </div>
   );
 }

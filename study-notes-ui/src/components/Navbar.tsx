@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import LoginDialog from "./Dialogs/LoginDialog";
+import SignupDialog from "./Dialogs/SignupDialog";
 
 function Navbar() {
   const [logindialog, setLoginDialog] = useState(false);
+  const [signup, setSignup] = useState(false);
+
+  const handleSignup = () => {
+    setSignup(true);
+  };
+  const closeSignup = () => {
+    setSignup(false);
+  };
 
   const handleOpen = () => {
     setLoginDialog(true);
@@ -89,10 +98,22 @@ function Navbar() {
           >
             Login
           </button>
-          <LoginDialog open={logindialog} handleClose={handleClose} />
-          <button className="btn btn-sm bg-indigo-700 text-white border-0 hover:bg-indigo-700 hover:opacity-80 ml-2">
+          <LoginDialog
+            handleOpen={handleOpen}
+            open={logindialog}
+            handleClose={handleClose}
+          />
+          <button
+            onClick={handleSignup}
+            className="btn btn-sm bg-indigo-700 text-white border-0 hover:bg-indigo-700 hover:opacity-80 ml-2"
+          >
             Sign Up
           </button>
+          <SignupDialog
+            loginOpen={handleOpen}
+            signup={signup}
+            closeSignup={closeSignup}
+          />
         </div>
       </div>
     </div>
