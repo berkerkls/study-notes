@@ -8,31 +8,36 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { AiOutlineClose } from "react-icons/ai";
 import { Divider, Link } from "@mui/material";
-import { useEffect } from "react";
+import LoginContext from "@/context/login/LoginContext";
+import { useContext } from "react";
 
-interface SignupDialogInterface {
-  closeSignup: any;
+interface SignupContextType {
   signup: boolean;
-  loginOpen: any;
+  dispatch: Function;
 }
 
-function SignupDialog({
-  closeSignup,
-  signup,
-  loginOpen,
-}: SignupDialogInterface) {
-  const handleLoginOpen = () => {
-    loginOpen();
-    closeSignup();
+function SignupDialog() {
+  const { signup, dispatch }: SignupContextType = useContext(LoginContext);
+
+  const handleClose = () => {
+    dispatch({
+      type: "SIGNUP_CLOSE",
+    });
+  };
+
+  const SignupToLogin = () => {
+    dispatch({
+      type: "SIGNUP_TO_LOGIN",
+    });
   };
 
   return (
-    <Dialog open={signup} onClose={closeSignup}>
+    <Dialog open={signup} onClose={handleClose}>
       <DialogTitle className="relative text-center text-emerald-500">
         Sign Up
         <Button
           className="absolute right-0 top-5 hover:bg-transparent"
-          onClick={closeSignup}
+          onClick={handleClose}
         >
           <AiOutlineClose className="text-emerald-500" />
         </Button>
@@ -75,7 +80,7 @@ function SignupDialog({
         {/* todos: Login button functionı backend geldiğinde bağlanacak */}
         <Button
           className="btn bg-emerald-500 w-2/3 mx-auto hover:bg-emerald-500 hover:opacity-80"
-          onClick={closeSignup}
+          onClick={handleClose}
         >
           Sign Up
         </Button>
@@ -85,7 +90,7 @@ function SignupDialog({
         <span>Already have an account?</span>
         <Link
           className="no-underline mr-2 cursor-pointer text-indigo-700"
-          onClick={handleLoginOpen}
+          onClick={SignupToLogin}
         >
           Login
         </Link>

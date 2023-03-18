@@ -9,26 +9,32 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { AiOutlineClose } from "react-icons/ai";
 import { Divider, Link } from "@mui/material";
 import SignupDialog from "./SignupDialog";
+import { useContext } from "react";
+import LoginContext from "@/context/login/LoginContext";
 
-interface NavbarProps {
-  handleClose: any;
-  open: boolean;
-  handleOpen: any;
+interface LoginDialogContextType {
+  login: boolean;
+  dispatch: Function;
 }
-function LoginDialog({ handleClose, open, handleOpen }: NavbarProps) {
-  const [signup, setSignup] = useState(false);
 
-  const handleSignup = () => {
-    setSignup(true);
-    handleClose();
+function LoginDialog() {
+  const { login, dispatch }: LoginDialogContextType = useContext(LoginContext);
+
+  const handleClose = () => {
+    dispatch({
+      type: "LOGIN_CLOSE",
+    });
   };
-  const closeSignup = () => {
-    setSignup(false);
+
+  const LoginToSignUp = () => {
+    dispatch({
+      type: "LOGIN_TO_SIGNUP",
+    });
   };
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={login} onClose={handleClose}>
         <DialogTitle className="relative text-center text-indigo-700">
           Login
           <Button
@@ -71,17 +77,12 @@ function LoginDialog({ handleClose, open, handleOpen }: NavbarProps) {
           <span className="ml-2">Don't you have an account? </span>
           <Link
             className="mr-2 no-underline cursor-pointer text-emerald-500"
-            onClick={handleSignup}
+            onClick={LoginToSignUp}
           >
             Signup
           </Link>
         </DialogContentText>
       </Dialog>
-      <SignupDialog
-        loginOpen={handleOpen}
-        signup={signup}
-        closeSignup={closeSignup}
-      />
     </div>
   );
 }

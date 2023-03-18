@@ -2,26 +2,31 @@ import React, { useState } from "react";
 import Link from "next/link";
 import LoginDialog from "./Dialogs/LoginDialog";
 import SignupDialog from "./Dialogs/SignupDialog";
+import { useContext } from "react";
+import LoginContext from "@/context/login/LoginContext";
 
+interface NavbarLoginSingupContext {
+  login: boolean;
+  signup: boolean;
+  dispatch: Function;
+}
 function Navbar() {
-  const [logindialog, setLoginDialog] = useState(false);
-  const [signup, setSignup] = useState(false);
+  const { login, signup, dispatch }: NavbarLoginSingupContext =
+    useContext(LoginContext);
 
-  const handleSignup = () => {
-    setSignup(true);
-  };
-  const closeSignup = () => {
-    setSignup(false);
-  };
-
-  const handleOpen = () => {
-    setLoginDialog(true);
+  const openSignup = () => {
+    dispatch({
+      type: "SIGNUP_OPEN",
+    });
+    console.log("singup", signup);
   };
 
-  const handleClose = () => {
-    setLoginDialog(false);
+  const openLogin = () => {
+    dispatch({
+      type: "LOGIN_OPEN",
+    });
+    console.log("login", login);
   };
-
   const links = [
     {
       name: "React",
@@ -34,6 +39,7 @@ function Navbar() {
       textcolor: "text-blue-500",
     },
   ];
+
   return (
     <div>
       <div className="navbar">
@@ -96,27 +102,19 @@ function Navbar() {
             </li>
           </ul>
           <button
-            onClick={handleOpen}
+            onClick={openLogin}
             className="btn btn-sm bg-transparent border-indigo-700 text-indigo-700 hover:text-white hover:border-indigo-700 hover:bg-indigo-700 mr-2"
           >
             Login
           </button>
-          <LoginDialog
-            handleOpen={handleOpen}
-            open={logindialog}
-            handleClose={handleClose}
-          />
+          <LoginDialog />
           <button
-            onClick={handleSignup}
+            onClick={openSignup}
             className="btn btn-sm bg-indigo-700 text-white border-0 hover:bg-indigo-700 hover:opacity-80 ml-2"
           >
             Sign Up
           </button>
-          <SignupDialog
-            loginOpen={handleOpen}
-            signup={signup}
-            closeSignup={closeSignup}
-          />
+          <SignupDialog />
         </div>
       </div>
     </div>
