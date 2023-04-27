@@ -1,3 +1,4 @@
+const { log } = require('console');
 const http = require('http');
 
 const todos = [
@@ -9,9 +10,27 @@ const server = http.createServer((req, res) => {
   // We can reach headers url and other parameters inside of req by destructring
   const { headers, url, method } = req;
   // We can set header some parameters by setHeader function
-  res.setHeader('Content-Type', 'application/json');
+  // res.setHeader('Content-Type', 'application/json');
   // This is header parameter is not usual but no harm to know
-  res.setHeader('X-Powered-By', 'Node.js');
+  // res.setHeader('X-Powered-By', 'Node.js');
+  // and as a short form we can use writeHead func
+  res.writeHead(200, {
+    'Content-Type': 'application/json',
+    'X-Powered-By': 'Node.js',
+  });
+
+  // Here if we were using express we could just send data to body as req.body.email
+  let body = [];
+
+  // In here we just added data to body by using event methods
+  req
+    .on('data', (chunk) => {
+      body.push(chunk);
+    })
+    .on('end', () => {
+      body = Buffer.concat(body).toString();
+      console.log(body);
+    });
 
   // with write() if you want to output as a html element you should set Content-Type as text/html inside of header and you can use setHeader func as above.
   // res.write('<h1>Hello</h1>');
