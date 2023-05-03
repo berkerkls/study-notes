@@ -1,7 +1,8 @@
 // We are initializing our packages
 const express = require('express');
 const dotenv = require('dotenv');
-const logger = require('./middleware/middleware');
+// const logger = require("./middleware/middleware.js")
+const morgan = require('morgan');
 
 // Route Files
 const bootcamp = require('./routes/bootcamps');
@@ -15,7 +16,13 @@ const PORT = process.env.PORT;
 // We are initializing our app
 const app = express();
 
-app.use(logger);
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
+// for custom middleware that we have created
+// app.use(logger)
 
 // Mounting our router with use function in express. First param is the url and second param is the file
 app.use('/api/v1/bootcamps', bootcamp);
