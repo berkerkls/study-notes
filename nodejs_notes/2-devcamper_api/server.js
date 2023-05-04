@@ -35,7 +35,14 @@ app.use('/api/v1/bootcamps', bootcamp);
 
 // and we want it to check this app by using listen function, this function takes port and a function so in below if we run npm run dev console will say on development mode but if we say npm start it will say production mode. you can check package file
 
-app.listen(
+const server = app.listen(
   PORT,
   console.log(`Server is running on ${process.env.NODE_ENV} mode on ${PORT}`)
 );
+
+//  we need a function to stop the server and handle unhandled rejections os this func works this job
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`);
+  // Close server and exit process
+  server.close(() => process.exit(1));
+});
