@@ -6,4 +6,4 @@
 .env.test.local
 .env.production.local
 
-/config/config.env
+config/
