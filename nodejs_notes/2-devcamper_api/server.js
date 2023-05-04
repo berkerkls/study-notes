@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 // const logger = require("./middleware/middleware.js")
 const morgan = require('morgan');
+require('colors');
 
 // We import the function from the db file in config folder
 const connectDB = require('./config/db');
@@ -37,12 +38,14 @@ app.use('/api/v1/bootcamps', bootcamp);
 
 const server = app.listen(
   PORT,
-  console.log(`Server is running on ${process.env.NODE_ENV} mode on ${PORT}`)
+  console.log(
+    `Server is running on ${process.env.NODE_ENV} mode on ${PORT}`.yellow.bold
+  )
 );
 
 //  we need a function to stop the server and handle unhandled rejections os this func works this job
 process.on('unhandledRejection', (err, promise) => {
-  console.log(`Error: ${err.message}`);
+  console.log(`Error: ${err.message}`.red.bold);
   // Close server and exit process
   server.close(() => process.exit(1));
 });
