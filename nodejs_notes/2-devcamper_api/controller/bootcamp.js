@@ -33,7 +33,7 @@ exports.updateBootcamp = (req, res, next) => {
 // @desc Delete bootcamp
 // @route /api/v1/bootcamps/:id
 // @access private
-exports.deletBootcamp = (req, res, next) => {
+exports.deleteBootcamp = (req, res, next) => {
   res
     .status(200)
     .json({ isSuccess: true, msg: `Delete bootcamp ${req.params.id}` });

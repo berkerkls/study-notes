@@ -4,11 +4,17 @@ const dotenv = require('dotenv');
 // const logger = require("./middleware/middleware.js")
 const morgan = require('morgan');
 
+// We import the function from the db file in config folder
+const connectDB = require('./config/db');
+
 // Route Files
 const bootcamp = require('./routes/bootcamps');
 
 // To load the env varianbles we need to do some setting as giving the path to make it know where to look for
 dotenv.config({ path: './config/config.env' });
+
+// And right under configuration we just call the connectDb func
+connectDB();
 
 // here we need our port for listen function and we can reach our port from env file just like below.
 const PORT = process.env.PORT;
