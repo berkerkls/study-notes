@@ -56,17 +56,54 @@ exports.createBootcamp = async (req, res, next) => {
 // @desc Update bootcamp
 // @route /api/v1/bootcamps/:id
 // @access private
-exports.updateBootcamp = (req, res, next) => {
-  res
-    .status(200)
-    .json({ isSuccess: true, msg: `Update bootcamp ${req.params.id}` });
+exports.updateBootcamp = async (req, res, next) => {
+  try {
+    const updatedBootcamp = await Bootcamp.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!updatedBootcamp) {
+      return res.status(400).json({
+        isSuccess: false,
+        msg: "Bootcamp couldn't be updated",
+      });
+    }
+    res.status(200).json({
+      isSuccess: true,
+      msg: `Updated bootcamp ${req.params.id}`,
+      data: updatedBootcamp,
+    });
+  } catch (err) {
+    res.status(400).json({
+      isSuccess: false,
+      msg: err.message,
+    });
+  }
 };
 
 // @desc Delete bootcamp
 // @route /api/v1/bootcamps/:id
 // @access private
-exports.deleteBootcamp = (req, res, next) => {
-  res
-    .status(200)
-    .json({ isSuccess: true, msg: `Delete bootcamp ${req.params.id}` });
+exports.deleteBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+    if (!bootcamp) {
+      return res.status(400).json({
+        isSuccess: false,
+        msg: "Bootcamp couldn't be found to delete",
+      });
+    }
+    res
+      .status(200)
+      .json({ isSuccess: true, msg: `Deleted bootcamp ${req.params.id}` });
+  } catch (error) {
+    res.status(400).json({
+      isSuccess: false,
+      msg: err.message,
+    });
+  }
 };
