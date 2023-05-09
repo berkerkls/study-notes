@@ -1,4 +1,5 @@
 const Bootcamp = require('../models/Bootcamp');
+// By using async Function we get rid of doing try and catch constantly
 const asyncHandler = require('../middleware/async');
 
 // @desc Get all bootcamps
