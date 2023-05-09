@@ -2,6 +2,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 // const logger = require("./middleware/middleware.js")
+const errorHandler = require('./middleware/error');
 const morgan = require('morgan');
 require('colors');
 
@@ -36,6 +37,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // Mounting our router with use function in express. First param is the url and second param is the file
 app.use('/api/v1/bootcamps', bootcamp);
+
+// We have exported the middleware function and use it in our app and !!important if you want to use this error handler in your controllers you should have use it after you initialize your controller as we do rn
+app.use(errorHandler);
 
 // and we want it to check this app by using listen function, this function takes port and a function so in below if we run npm run dev console will say on development mode but if we say npm start it will say production mode. you can check package file
 
