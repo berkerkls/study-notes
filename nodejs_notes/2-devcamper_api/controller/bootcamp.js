@@ -1,4 +1,5 @@
 const Bootcamp = require('../models/Bootcamp');
+const ErrorResponse = require('../utils/errorResponse');
 
 // @desc Get all bootcamps
 // @route /api/v1/bootcamps
@@ -10,7 +11,7 @@ exports.getBootcamps = async (req, res, next) => {
       .status(200)
       .json({ isSuccess: true, msg: 'Show all bootcamps', data: bootcamps });
   } catch (err) {
-    res.status(400).json({ isSuccess: false, msg: err.message });
+    next(err);
   }
 };
 
@@ -21,9 +22,10 @@ exports.getBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findById(req.params.id);
     if (!bootcamp) {
-      return res
-        .status(400)
-        .json({ isSuccess: false, msg: "Bootcamp couldn't be found" });
+      // return res
+      //   .status(400)
+      //   .json({ isSuccess: false, msg: "Bootcamp couldn't be found" });
+      return next(err);
     }
     res.status(200).json({
       isSuccess: true,
@@ -68,10 +70,7 @@ exports.updateBootcamp = async (req, res, next) => {
       }
     );
     if (!updatedBootcamp) {
-      return res.status(400).json({
-        isSuccess: false,
-        msg: "Bootcamp couldn't be updated",
-      });
+      return next(err);
     }
     res.status(200).json({
       isSuccess: true,
@@ -79,10 +78,7 @@ exports.updateBootcamp = async (req, res, next) => {
       data: updatedBootcamp,
     });
   } catch (err) {
-    res.status(400).json({
-      isSuccess: false,
-      msg: err.message,
-    });
+    next(err);
   }
 };
 
@@ -93,18 +89,12 @@ exports.deleteBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
     if (!bootcamp) {
-      return res.status(400).json({
-        isSuccess: false,
-        msg: "Bootcamp couldn't be found to delete",
-      });
+      return next(err);
     }
     res
       .status(200)
       .json({ isSuccess: true, msg: `Deleted bootcamp ${req.params.id}` });
   } catch (error) {
-    res.status(400).json({
-      isSuccess: false,
-      msg: err.message,
-    });
+    next(err);
   }
 };
