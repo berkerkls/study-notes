@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const BootcampSchema = new mongoose.Schema({
   name: {
@@ -98,6 +99,12 @@ const BootcampSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+// We slug the name in the post request, we used pre func because we want to do it before save and we used 'save' attribute because we are doing post request. Additional info: pre func doesn't accept arrow function
+BootcampSchema.pre('save', function (next) {
+  // By using slugify we will have a slug key with value lover case of the name. ex: name: Code Master slug:code-master. It will be useful in frontend to match with the url and also useful for SEO things.
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 module.exports = mongoose.model('Bootcamp', BootcampSchema);
