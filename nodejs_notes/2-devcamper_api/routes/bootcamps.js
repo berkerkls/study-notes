@@ -8,10 +8,14 @@ const {
   createBootcamp,
   updateBootcamp,
   deleteBootcamp,
+  getBootcampInRadius,
 } = require('../controller/bootcamp');
 
 // in route function we give url and because getBootcamps and createBootcamp functions do not need id in our controller file we used / url
 router.route('/').get(getBootcamps).post(createBootcamp);
+
+// in this endpoint we need zipcode and distance as parameter so we need to create new route
+router.route('/radius/:zipcode/:distance').get(getBootcampInRadius);
 
 // but here in get by id update and delete func we need id so we used different url
 router
