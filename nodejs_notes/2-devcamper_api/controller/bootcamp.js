@@ -8,8 +8,18 @@ const asyncHandler = require('../middleware/async');
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
   // Here we have created a query and this query can take averageCost param to filter the bootcamps, exmp: url/averageCost[lte]=1000 will be output as {averageCost: {lte: 1000}}
   let query;
+
+  // Create copy of the query
+  const copyQuery = { ...req.query };
+
+  // we need to remove fields to get rid of any error when we didn't pass any param to the query so we created an array which exception included
+  const removeFields = ['select'];
+
+  // we loop through and the exceptions inside of the query
+  removeFields.forEach((item) => delete copyQuery[item]);
+
   // We have stringify it to edit the query to be available for find method
-  let queryString = JSON.stringify(req.query);
+  let queryString = JSON.stringify(copyQuery);
   // But for mongoose there should be money sign in front of the commands so we replace it with regex to edit.
   queryString = queryString.replace(
     /\b(gt|gte|lt|lte|in)\b/g,
@@ -18,10 +28,19 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   // Now we will search desired bootcamp with query in bootcamps. We have parse it because it should be json object not string.
   query = Bootcamp.find(JSON.parse(queryString));
 
+  // As you can remember we are deleting params inside of removeFields so if we pass select it wont work it will return all bootcamps so we should make it work
+  if (req.query.select) {
+    const fields = req.query.select.split(',').join(' ');
+    query = query.select(fields);
+  }
+
   const bootcamps = await query;
-  res
-    .status(200)
-    .json({ isSuccess: true, msg: 'Show all bootcamps', data: bootcamps });
+  res.status(200).json({
+    isSuccess: true,
+    count: bootcamps.length,
+    msg: 'Show all bootcamps',
+    data: bootcamps,
+  });
 });
 
 // @desc Get single bootcamp
