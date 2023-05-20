@@ -14,17 +14,24 @@ const bootcamps = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/bootcamps.json`, 'utf-8')
 );
 
+// get courses json file
+const courses = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8')
+);
+
 // Get bootcamp model
 const Bootcamp = require('./models/Bootcamp');
+const Course = require('./models/Course');
 
 // Basically we are doing post method just like we do in our controller
 const importData = async () => {
   try {
     await Bootcamp.create(bootcamps);
+    await Course.create(courses);
     console.log('Data Imported'.green.inverse);
     process.exit();
   } catch (error) {
-    console.log(error.red.inverse);
+    console.log(error);
   }
 };
 
@@ -32,6 +39,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Bootcamp.deleteMany();
+    await Course.deleteMany();
     console.log('Data destroyed'.red.inverse);
   } catch (error) {
     console.log(error.red.inverse);
