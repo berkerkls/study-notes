@@ -13,7 +13,7 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   const copyQuery = { ...req.query };
 
   // we need to remove fields to get rid of any error when we didn't pass any param to the query so we created an array which exception included
-  const removeFields = ['select'];
+  const removeFields = ['select', 'sort', 'limit', 'page'];
 
   // we loop through and the exceptions inside of the query
   removeFields.forEach((item) => delete copyQuery[item]);
@@ -33,6 +33,24 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
     const fields = req.query.select.split(',').join(' ');
     query = query.select(fields);
   }
+
+  if (req.query.sort) {
+    const fields = req.query.sort.split(',').join(' ');
+    query = query.sort(fields);
+  } else {
+    query = query.sort('-createdAt');
+  }
+
+  // Pagination (It basically means it will give you the amount of data that you specified)
+  // here we can specify the page of params if want a bootcamp page 1 it will return the first bootcamp in the list
+  const page = parseInt(req.query.page, 10) || 1;
+  // If we specify the limit it will give us amount of data as much as we want if the params like ?page=2&limit=2 it will give us the first two item in second page
+  const limit = parseInt(req.query.limit, 10) || 100;
+  // We should know how many item we will skip if there is no page skip will be 0 automatically
+  const skip = (page - 1) * limit;
+  // We should us skip() for page and limit() to limit the amount of items
+  query = query.skip(skip).limit(limit);
+  console.log('query', page);
 
   const bootcamps = await query;
   res.status(200).json({
