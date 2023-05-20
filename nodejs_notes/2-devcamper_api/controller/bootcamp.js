@@ -45,17 +45,36 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   // here we can specify the page of params if want a bootcamp page 1 it will return the first bootcamp in the list
   const page = parseInt(req.query.page, 10) || 1;
   // If we specify the limit it will give us amount of data as much as we want if the params like ?page=2&limit=2 it will give us the first two item in second page
-  const limit = parseInt(req.query.limit, 10) || 100;
+  const limit = parseInt(req.query.limit, 10) || 25;
   // We should know how many item we will skip if there is no page skip will be 0 automatically
-  const skip = (page - 1) * limit;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const total = await Bootcamp.countDocuments();
   // We should us skip() for page and limit() to limit the amount of items
-  query = query.skip(skip).limit(limit);
-  console.log('query', page);
+  query = query.skip(startIndex).limit(limit);
 
   const bootcamps = await query;
+
+  const pagination = {};
+
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
+  }
+
+  if (startIndex > 0) {
+    pagination.prev = {
+      page: page - 1,
+      limit,
+    };
+  }
+
   res.status(200).json({
     isSuccess: true,
     count: bootcamps.length,
+    pagination,
     msg: 'Show all bootcamps',
     data: bootcamps,
   });
