@@ -21,6 +21,7 @@ const courses = JSON.parse(
 
 // Get bootcamp model
 const Bootcamp = require('./models/Bootcamp');
+// Get course model
 const Course = require('./models/Course');
 
 // Basically we are doing post method just like we do in our controller

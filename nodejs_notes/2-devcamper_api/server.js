@@ -11,6 +11,7 @@ const connectDB = require('./config/db');
 
 // Route Files
 const bootcamp = require('./routes/bootcamps');
+const course = require('./routes/courses');
 
 // To load the env varianbles we need to do some setting as giving the path to make it know where to look for
 dotenv.config({ path: './config/config.env' });
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Mounting our router with use function in express. First param is the url and second param is the file
 app.use('/api/v1/bootcamps', bootcamp);
+app.use('/api/v1/courses', course);
 
 // We have exported the middleware function and use it in our app and !!important if you want to use this error handler in your controllers you should have use it after you initialize your controller as we do rn
 app.use(errorHandler);
