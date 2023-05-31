@@ -11,6 +11,12 @@ const {
   getBootcampInRadius,
 } = require('../controller/bootcamp');
 
+// add other course router in same file
+const courseRouter = require('./courses');
+
+// Reinitialize the router into other resource
+router.use('/:bootcampId/courses', courseRouter);
+
 // in route function we give url and because getBootcamps and createBootcamp functions do not need id in our controller file we used / url
 router.route('/').get(getBootcamps).post(createBootcamp);
 
