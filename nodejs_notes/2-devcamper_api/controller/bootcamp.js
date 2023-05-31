@@ -12,13 +12,13 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   // Create copy of the query
   const copyQuery = { ...req.query };
 
-  // we need to remove fields to get rid of any error when we didn't pass any param to the query so we created an array which exception included
+  // we need to remove fields to get rid of any error when we didn't pass any param to the query so we created an array which exceptions included
   const removeFields = ['select', 'sort', 'limit', 'page'];
 
   // we loop through and the exceptions inside of the query
   removeFields.forEach((item) => delete copyQuery[item]);
 
-  // We have stringify it to edit the query to be available for find method
+  // We have to stringify it to edit the query to be available for find method
   let queryString = JSON.stringify(copyQuery);
   // But for mongoose there should be money sign in front of the commands so we replace it with regex to edit.
   queryString = queryString.replace(
