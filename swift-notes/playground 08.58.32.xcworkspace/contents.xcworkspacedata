@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Extensions.playground">
+   </FileRef>
+   <FileRef
       location = "group:Protocols.playground">
    </FileRef>
    <FileRef
