@@ -6,6 +6,7 @@
 * Node.js
 * React
 * TypeScript
+* Swift
 
 ### Resources 💻
 [Node.js Course](https://www.udemy.com/course/nodejs-api-masterclass/learn/lecture/16581658#overview "Node.js Course title")
@@ -13,3 +14,5 @@
 [React Course](https://www.udemy.com/course/react-front-to-back-2022/learn/lecture/29768910?start=0#overview "React Course title")
 
 [Typescript Course](https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia "TypeScript Course title")
+
+[Swift Course](https://www.youtube.com/watch?v=8Xg7E9shq0U&t=127s)
