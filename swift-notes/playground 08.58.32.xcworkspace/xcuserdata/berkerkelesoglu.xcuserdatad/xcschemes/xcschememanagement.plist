@@ -151,6 +151,27 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>Protocols (Playground) 1.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
+		<key>Protocols (Playground) 2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>17</integer>
+		</dict>
+		<key>Protocols (Playground).xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 		<key>Structures (Playground) 1.xcscheme</key>
 		<dict>
 			<key>isShown</key>
